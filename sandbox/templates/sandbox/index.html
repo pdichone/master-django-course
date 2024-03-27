@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Foodie</title>
-    </head>
-    <body>
-        <p>Hello there, {{ data.age }}</p>
-    </body>
-</html>
+{% extends "sandbox/base.html" %}
+{% block content %}
+    {% if foods %}
+        <ul>
+            {% for food in foods %}<li>{{ food }}</li>{% endfor %}
+        </ul>
+    {% else %}
+        <p>No foods found.</p>
+    {% endif %}
+{% endblock content %}

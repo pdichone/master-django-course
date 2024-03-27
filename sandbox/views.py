@@ -1,12 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from random import choice
-
-fruits = ["apples", "pears", "mangoes"]
 
 
 # Create your views here.
 def index(request):
+    data = {"name": "Paulo", "age": 123}
 
-    data = choice(fruits)
-    return HttpResponse(f"Hello there {data}")
+    context = {"data": data}
+    return render(request, "sandbox/index.html", context)

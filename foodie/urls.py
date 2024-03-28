@@ -22,4 +22,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("sandbox/", include("sandbox.urls")),
     path("", include("foodie_app.urls")),
+    path("recipes/", include("recipes.urls")),
 ]

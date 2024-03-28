@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     # my apps
     "sandbox",
     "foodie_app",
+    "recipes",
     # default apps
     "django.contrib.admin",
     "django.contrib.auth",

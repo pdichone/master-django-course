@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Foodie</title>
+    </head>
+    <body>
+        <header>
+            <div>Foodie</div>
+        </header>
+        <main>
+            <div class="container">
+                {% block content %}
+                {% endblock content %}
+            </div>
+        </main>
+        <div>
+            {% comment %} <hr> {% endcomment %}
+            <footer>
+                {% comment %} <pre>Footer</pre> {% endcomment %}
+            </footer>
+        </div>
+    </body>
+</html>

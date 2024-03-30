@@ -18,9 +18,10 @@ def recipes(request):
     # recipes = Recipe.objects.aggregate(Count("id"))
     # recipes = Recipe.objects.aggregate(Avg("id"))
     # recipes = Recipe.objects.filter(id__gt=3)
-    recipes = Recipe.objects.filter(
-        Q(name__startswith="M") | Q(description__icontains="Cuban")
-    )
+    # recipes = Recipe.objects.filter(
+    #     Q(name__startswith="M") | Q(description__icontains="Cuban")
+    # )
+    recipes = Recipe.objects.filter(name__contains="Bread").exists()
 
     print("Recipes", recipes)
 

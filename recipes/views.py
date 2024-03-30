@@ -5,7 +5,9 @@ from .models import Recipe
 
 # Create your views here.
 def recipes(request):
-    recipes = Recipe.objects.filter(category__name__exact="Soup")
+    # recipes = Recipe.objects.filter(category__name__exact="Soup")
+    recipes = Recipe.objects.exclude(name__contains="chocolate")
+
     print("Recipes", recipes)
 
     return HttpResponse("Hello from Recipes")

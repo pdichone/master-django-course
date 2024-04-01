@@ -2,9 +2,8 @@ from django.db import models
 
 from foodie_app.models import Category
 
+
 # Create your models here.
-
-
 class Recipe(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)

@@ -1,8 +1,10 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, View
 
-from recipes.models import Recipe
+from recipes.models import Recipe, Category
 
 
 # Create your views here.
@@ -16,11 +18,22 @@ class RecipeListView(ListView):
     model = Recipe
     template_name = "sandbox/index.html"
 
-
     context_object_name = "recipes"
+
+    def get_queryset(self):
+        filtered_recipes = Recipe.objects.filter(category__name__iexact="soup")
+        return filtered_recipes
 
 
 class RecipeDetailView(DetailView):
     model = Recipe
     template_name = "sandbox/recipe_detail.html"
     context_object_name = "recipe"
+
+
+class SpecifcRecipesView(View):
+    def get(self, request, *args, **kwargs):
+        # fetch recipes with "refreshing" in the description
+        refreshing_recipes = Recipe.objects.filter(description__icontains="rich")
+        context = {"refreshing": refreshing_recipes}
+        return render(request, "sandbox/refreshing_recipes.html", context)

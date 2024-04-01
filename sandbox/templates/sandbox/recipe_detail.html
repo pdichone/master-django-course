@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if recipe %}
+        <article>
+            <h2>{{ recipe.name }}</h2>
+            Ingredients:
+            <p>{{ recipe.ingredients }}</p>
+            Description:
+            <p>{{ recipe.description }}</p>
+            Ingredients:
+            <p>{{ recipe.ingredients }}</p>
+            Directions:
+            <p>{{ recipe.directions }}</p>
+        </article>
+    {% else %}
+        <p>No foods found.</p>
+    {% endif %}
+{% endblock content %}

@@ -3,6 +3,7 @@
     <h3>
         Recipes under <i>{{ category }} </i>
     </h3>
+    <a href="{% url "foodie_app:add_recipe_with_genre" category_id=category.id %}">Add Recipe</a>
     <div>
         {% for recipe in recipes %}
             <div>

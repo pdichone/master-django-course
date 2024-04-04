@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "recipes",
     "comments",
     "accounts",
+    "django_bootstrap5",
     # default apps
     "django.contrib.admin",
     "django.contrib.auth",
@@ -128,3 +129,8 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# My settings
+LOGIN_REDIRECT_URL = "foodie_app:index"
+LOGOUT_REDIRECT_URL = "foodie_app:index"
+LOGIN_URL = "accounts:login"

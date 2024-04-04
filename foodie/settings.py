@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "foodie_app",
     "recipes",
     "comments",
+    "accounts",
     # default apps
     "django.contrib.admin",
     "django.contrib.auth",

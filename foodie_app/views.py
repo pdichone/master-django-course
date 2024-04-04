@@ -37,17 +37,6 @@ def add_category(request):
         return render(request, "foodie_app/add_category.html", context)
 
 
-# def add_recipe(request):
-#     if request.method == "POST":
-#         form = RecipeForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect("recipes:index")
-#     else:
-#         form = RecipeForm()
-#     return render(request, "foodie_app/add_recipe.html", {"form": form})
-
-
 def add_recipe(request, category_id=None):
     category = None
     if category_id:

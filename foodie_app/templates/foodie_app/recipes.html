@@ -1,17 +1,23 @@
 {% extends "base.html" %}
-{% block content %}
+{% load django_bootstrap5 %}
+{% block page_header %}
     <h3>
         Recipes under <i>{{ category }} </i>
     </h3>
+{% endblock page_header %}
+{% block content %}
     <a href="{% url "foodie_app:add_recipe_with_genre" category_id=category.id %}">Add Recipe</a>
     <div>
         {% for recipe in recipes %}
-            <div>
-                <div>
-                    <h5>{{ recipe.name }}</h5>
-                    <p>{{ recipe.description }}</p>
-                    {% comment %} <a href="">{{ category }}</a> {% endcomment %}
+            <div class="card mb-3">
+                <h6 class="card-header">
+                    {{ recipe.name }}, <i>added: {{ recipe.date_added|date:"M d, Y " }} </i>
+                </h6>
+                <div class="card-body">
+                    <p>Description:</p>
+                    {{ recipe.description }}
                 </div>
+                <small> <a href="{% url "recipes:recipe_detail" recipe.id %}">View recipe details</a> </small>
             </div>
         {% endfor %}
     </div>

@@ -1,8 +1,9 @@
 {% extends "base.html" %}
+{% load django_bootstrap5 %}
 {% block content %}
-    <div>
-        <div>
-            <h5>{{ recipe.name }}</h5>
+    <div class="card mb-3">
+        <h6 class="card-header">{{ recipe.name }}</h6>
+        <div class="card-body">
             <i>Description: </i>
             <p>{{ recipe.description }}</p>
             <i>Ingredients: </i>

@@ -1,12 +1,24 @@
 {% extends "base.html" %}
+{% load django_bootstrap5 %}
 {% block content %}
-    <h3>Categories</h3>
-    <div>
-        <a href="{% url "foodie_app:add_category" %}">Add Category</a>
+    <div class="container">
+        <div class="col-md-12">
+            <h3 class="display-4">Foodie</h3>
+            <p class="lead">
+                Foodie is a web application that allows you to search for recipes based on the ingredients you have in your kitchen.
+                You can also save your favorite recipes and create a shopping list for the ingredients you need to buy.
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <h6 class="display-5">Trending Recipe Categories</h6>
+    </div>
+    <div class="w-100 mt-8">
         {% for category in categories %}
-            <div>
-                <a href="{% url "foodie_app:recipes" category.id %}">{{ category }}</a>
+            <div class="card mb-2">
+                <a class="card-title" href="{% url "foodie_app:recipes" category.id %}">{{ category }}</a>
             </div>
         {% endfor %}
+        <a href="{% url "foodie_app:add_category" %}">Add Category</a>
     </div>
 {% endblock content %}

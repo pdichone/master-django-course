@@ -39,7 +39,7 @@
                         <!-- Authentication Links -->
                         {% if user.is_authenticated %}
                             <li class="nav-item">
-                                <span class="nav-text me-2">Welcome, {{ user.username }}</span>
+                                <span class="nav-text me-2">Welcome, <a href="{% url "accounts:edit_user_profile" %}">{{ user.username }}</a></span>
                             </li>
                         {% else %}
                             <li class="nav-item">

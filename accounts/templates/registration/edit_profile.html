@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <h3>Edit Profile</h3>
+    {{ user.profile }}
+    <div class="mb-3">
+        {% if request.user.profile.profile_photo %}
+            <img src="{{ request.user.profile.profile_photo.url }}"
+                 height="100"
+                 width="100"
+                 alt="Profile photo"
+                 class="img-thumbnail">
+        {% else %}
+            <p>No Photo uploaded.</p>
+        {% endif %}
+    </div>
+    <div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% bootstrap_button button_type="submit" content="Save changes" %}
+        </form>
+    </div>
+{% endblock content %}

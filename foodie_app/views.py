@@ -42,18 +42,21 @@ def add_category(request):
 @login_required
 def add_recipe(request, category_id=None):
     category = None
-    if category_id:
-        # category = Category.objects.get(pk=category_id)
-        category = get_object_or_404(Category, id=category_id)
-        form = RecipeForm(request.POST or None, initial={"category": category})
-    else:
-        form = RecipeForm(request.POST or None)
+    initial_data = {}
 
-    if request.method == "POST" and form.is_valid():
-        new_recipe = form.save(commit=False)
-        new_recipe.user = request.user
-        new_recipe.save()
-        return redirect("foodie_app:recipes", category_id=new_recipe.category.id)
+    if category_id:
+        category = get_object_or_404(Category, id=category_id)
+        initial_data = {"category": category}
+
+    if request.method == "POST":
+        form = RecipeForm(request.POST, request.FILES, initial=initial_data)
+        if form.is_valid():
+            new_recipe = form.save(commit=False)
+            new_recipe.user = request.user
+            new_recipe.save()
+            return redirect("foodie_app:recipes", category_id=new_recipe.category.id)
+    else:
+        form = RecipeForm(initial=initial_data)
 
     context = {"form": form, "category": category}
     return render(request, "foodie_app/add_recipe.html", context)

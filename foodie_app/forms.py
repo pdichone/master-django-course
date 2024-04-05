@@ -21,7 +21,14 @@ class CategoryForm(forms.ModelForm):
 class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ["name", "description", "ingredients", "directions", "category"]
+        fields = [
+            "name",
+            "description",
+            "ingredients",
+            "directions",
+            "category",
+            "image",
+        ]
         widgets = {
             "name": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Recipe title"}

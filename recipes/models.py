@@ -16,6 +16,7 @@ class Recipe(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, related_name="recipes"
     )
+    image = models.ImageField(upload_to="recipe_images/", null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse("recipes:recipe_detail", args=[str(self.id)])

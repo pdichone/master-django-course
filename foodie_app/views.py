@@ -15,7 +15,7 @@ def index(request):
 
 
 def recipes(request, category_id):
-    recipes = Recipe.objects.filter(category=category_id)
+    recipes = Recipe.objects.filter(category=category_id).order_by("-date_added")
     category = Category.objects.get(pk=category_id)
 
     context = {"recipes": recipes, "category": category}

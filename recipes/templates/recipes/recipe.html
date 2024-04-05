@@ -1,17 +1,40 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
 {% block content %}
-    <div class="card mb-3">
-        <h6 class="card-header">{{ recipe.name }}</h6>
-        <div class="card-body">
-            <i>Description: </i>
-            <p>{{ recipe.description }}</p>
-            <i>Ingredients: </i>
-            <p>{{ recipe.ingredients }}</p>
-            <i>Directions: </i>
-            <p>{{ recipe.directions }}</p>
+    {% if recipe %}
+        <div class="card mb-3 mx-auto">
+            <div class="row g-0">
+                <div class="col-md-4 d-flex justify-content-center">
+                    {% if recipe.image %}
+                        <img src="{{ recipe.image.url }}"
+                             alt="{{ recipe.name }}"
+                             class="img-fluid rounded shadow">
+                    {% else %}
+                        <img src="https://placehold.co/800?text=placeholder&font=roboto"
+                             alt="{{ recipe.name }}"
+                             class="img-fluid rounded shadow">
+                    {% endif %}
+                </div>
+                <div class="col-md-8 ">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ recipe.name }}</h5>
+                        <p>Description:</p>
+                        <p class="card-text">{{ recipe.description }}</p>
+                        Ingredients:
+                        <p class="card-text">{{ recipe.ingredients }}</p>
+                        Directions:
+                        <p class="card-text">{{ recipe.directions }}</p>
+                        <p class="card-text">
+                            <small class="text-body-secondary"><i>added: {{ recipe.date_added|date:"M d, Y " }} </i></small>
+                        </p>
+                        {% comment %} <small> <a href="{% url "recipes:recipe_detail" recipe.id %}">View recipe details</a> </small> {% endcomment %}
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    {% else %}
+        <p>No recipe found.</p>
+    {% endif %}
     <div class="mt-4">
         <h5>Comments:</h5>
         {% for comment in comments %}

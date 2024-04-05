@@ -11,7 +11,7 @@ from django.db.models import Q
 
 def recipes(request):
 
-    recipes = Recipe.objects.all()
+    recipes = Recipe.objects.all().order_by("-date_added")
     context = {"recipes": recipes}
 
     return render(request, "recipes/recipes.html", context)

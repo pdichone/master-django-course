@@ -38,7 +38,15 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-md-0">
                         <!-- Authentication Links -->
                         {% if user.is_authenticated %}
-                            <li class="nav-item">
+                            <li class="nav-item d-flex align-items-center">
+                                {% if user.profile.profile_photo %}
+                                    <img src="{{ user.profile.profile_photo.url }}"
+                                         alt="Profile"
+                                         style="width: 30px;
+                                                height: 30px;
+                                                border-radius: 50%;
+                                                margin-right: 5px">
+                                {% endif %}
                                 <span class="nav-text me-2">Welcome, <a href="{% url "accounts:edit_user_profile" %}">{{ user.username }}</a></span>
                             </li>
                         {% else %}

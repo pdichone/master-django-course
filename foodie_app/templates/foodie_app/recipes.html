@@ -16,8 +16,22 @@
                 <div class="card-body">
                     <p>Description:</p>
                     {{ recipe.description }}
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <small> <a href="{% url "recipes:recipe_detail" recipe.id %}">View recipe details</a> </small>
+                        </div>
+                        <div class="col-auto">
+                            {% if recipe.user.profile.profile_photo %}
+                                <img src="{{ recipe.user.profile.profile_photo.url }}"
+                                     alt="Profile photo"
+                                     class="rounded-circle"
+                                     widht="30"
+                                     height="30">
+                            {% endif %}
+                            <small>Created by: {{ recipe.user.username }}</small>
+                        </div>
+                    </div>
                 </div>
-                <small> <a href="{% url "recipes:recipe_detail" recipe.id %}">View recipe details</a> </small>
             </div>
         {% endfor %}
     </div>

@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from foodie_app.forms import CategoryForm, RecipeForm
 from .models import Category
 from recipes.models import Recipe
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -21,6 +22,7 @@ def recipes(request, category_id):
     return render(request, "foodie_app/recipes.html", context)
 
 
+@login_required
 def add_category(request):
     if request.method == "POST":
 
@@ -37,6 +39,7 @@ def add_category(request):
         return render(request, "foodie_app/add_category.html", context)
 
 
+@login_required
 def add_recipe(request, category_id=None):
     category = None
     if category_id:
@@ -47,7 +50,9 @@ def add_recipe(request, category_id=None):
         form = RecipeForm(request.POST or None)
 
     if request.method == "POST" and form.is_valid():
-        new_recipe = form.save()
+        new_recipe = form.save(commit=False)
+        new_recipe.user = request.user
+        new_recipe.save()
         return redirect("foodie_app:recipes", category_id=new_recipe.category.id)
 
     context = {"form": form, "category": category}

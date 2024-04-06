@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView, View
 from recipes.models import Recipe, Category
 from sandbox.forms import FeedbackForm
 from sandbox.models import Feedback
+from django.contrib import messages
 
 
 # Create your views here.
@@ -50,7 +51,12 @@ def feedback(request):
             Feedback.objects.create(
                 name=name, email=email, feedback=feedback, satisfaction=satisfaction
             )
-            return redirect("sandbox:thank_you")
+            # messages.add_message(
+            #     request, messages.SUCCESS, "Feedback sent successfully!"
+            # )
+            messages.success(request, "Feedback sent successfully!")
+
+            return redirect("sandbox:index")
 
     else:
         form = FeedbackForm()

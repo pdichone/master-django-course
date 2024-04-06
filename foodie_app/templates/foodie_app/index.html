@@ -12,13 +12,19 @@
     </div>
     <div class="container">
         <h6 class="display-5">Trending Recipe Categories</h6>
-    </div>
-    <div class="w-100 mt-8">
-        {% for category in categories %}
-            <div class="card mb-2">
-                <a class="card-title" href="{% url "foodie_app:recipes" category.id %}">{{ category }}</a>
-            </div>
-        {% endfor %}
         <a href="{% url "foodie_app:add_category" %}">Add Category</a>
+    </div>
+    <div class="container mt-4">
+        <div class="row">
+            {% for category in categories %}
+                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <div class="card h-100  text-bg-light mb-3">
+                        <a class="card-title" href="{% url "foodie_app:recipes" category.id %}">
+                            <div class="card-body">{{ category }}</div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock content %}

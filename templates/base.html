@@ -42,6 +42,14 @@
                                    aria-current="page"
                                    href="{% url "recipes:favorite_recipes" %}">My Cookbook <i class="fa-solid fa-heart"></i></a>
                             </li>
+                            <li class="nav-item">
+                                <form class="d-flex my-2 my-lg-0 m-2 p-2"
+                                      action="{% url "recipes:search_results" %}"
+                                      method="get">
+                                    {{ search_form.query }}
+                                    <button class="btn btn-outline-success my-2 my-sm-0 m-1" type="submit">Search</button>
+                                </form>
+                            </li>
                         </ul>
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ms-auto mb-2 mb-md-0">

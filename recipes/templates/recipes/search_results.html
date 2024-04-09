@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block page_header %}
+    <h3>Recipes</h3>
+{% endblock page_header %}
+{% block content %}
+    <div class="container mt-4">
+        {% if results %}
+            {% for recipe in results %}
+                <div class="card mb-3 mx-auto" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4 d-flex justify-content-center">
+                            {% if recipe.image %}
+                                <img src="{{ recipe.image.url }}"
+                                     alt="{{ recipe.name }}"
+                                     class="img-fluid rounded shadow">
+                            {% else %}
+                                <img src="https://placehold.co/800?text=placeholder&font=roboto"
+                                     alt="{{ recipe.name }}"
+                                     class="img-fluid rounded shadow">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8 ">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ recipe.name }}</h5>
+                                <p>Description:</p>
+                                <p class="card-text">{{ recipe.description }}</p>
+                                <p class="card-text">
+                                    <small class="text-body-secondary"><i>added: {{ recipe.date_added|date:"M d, Y " }} </i></small>
+                                </p>
+                                <small> <a href="{% url "recipes:recipe_detail" recipe.id %}">View recipe details</a> </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No recipes found for "{{ query }}".</p>
+        {% endif %}
+    </div>
+{% endblock content %}

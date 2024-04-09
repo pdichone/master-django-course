@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from comments.forms import CommentForm
 from .models import Recipe
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 
 def recipes(request):
@@ -54,3 +55,30 @@ def favorite_recipes(request):
     favorites = user.favorite_recipes.all()
     context = {"recipes": favorites}
     return render(request, "recipes/favorite_recipes.html", context)
+
+
+def search_results(request):
+    query = request.GET.get("query", "")
+    if query:
+        results = Recipe.objects.filter(
+            Q(name__icontains=query)
+            | Q(description__icontains=query)
+            | Q(ingredients__icontains=query)
+            | Q(directions__icontains=query)
+            | Q(category__name__icontains=query)
+        )
+        # avoid duplicate results
+        seen_ids = set()
+        unique_results = []
+        for result in results:
+            if result.id not in seen_ids:
+                unique_results.append(result)
+                seen_ids.add(result.id)
+
+    else:
+        unique_results = []
+
+    # results = Recipe.objects.filter(name__icontains=query) if query else []
+
+    context = {"query": query, "results": unique_results}
+    return render(request, "recipes/search_results.html", context)

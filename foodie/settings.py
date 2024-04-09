@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "comments",
     "accounts",
     "django_bootstrap5",
+    "fontawesomefree",
     # default apps
     "django.contrib.admin",
     "django.contrib.auth",

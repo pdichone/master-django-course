@@ -1,12 +1,7 @@
-from datetime import datetime
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-
 from comments.forms import CommentForm
-from foodie_app.forms import RecipeForm
-from foodie_app.models import Category
 from .models import Recipe
-from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 
 def recipes(request):
@@ -40,3 +35,22 @@ def recipe_detail(request, recipe_id):
 
     context = {"recipe": recipe, "comments": comments, "comment_form": comment_form}
     return render(request, "recipes/recipe.html", context)
+
+
+@login_required
+def toggle_favorite(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+
+    if request.user in recipe.favorited_by.all():
+        recipe.favorited_by.remove(request.user)
+    else:
+        recipe.favorited_by.add(request.user)
+    return redirect("recipes:recipe_detail", recipe_id=recipe_id)
+
+
+@login_required
+def favorite_recipes(request):
+    user = request.user
+    favorites = user.favorite_recipes.all()
+    context = {"recipes": favorites}
+    return render(request, "recipes/favorite_recipes.html", context)

@@ -17,7 +17,8 @@ class Recipe(models.Model):
         User, on_delete=models.CASCADE, null=True, related_name="recipes"
     )
     image = models.ImageField(upload_to="recipe_images/", null=True, blank=True)
-
+    favorited_by = models.ManyToManyField(User, related_name="favorite_recipes", blank=True)
+    
     def get_absolute_url(self):
         return reverse("recipes:recipe_detail", args=[str(self.id)])
 

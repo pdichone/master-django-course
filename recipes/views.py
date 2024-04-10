@@ -2,9 +2,11 @@ from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from comments.forms import CommentForm
 from foodie_app.forms import RecipeForm
+from recipes.serializers import RecipeSerializer
 from .models import Recipe
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from rest_framework import viewsets
 
 
 def recipes(request):
@@ -124,3 +126,11 @@ def edit_recipe(request, recipe_id):
 
     context = {"form": form, "recipe": recipe}
     return render(request, "recipes/recipe_form.html", context)
+
+
+class RecipeViewSet(viewsets.ModelViewSet):
+    queryset = Recipe.objects.all()
+    serializer_class = RecipeSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

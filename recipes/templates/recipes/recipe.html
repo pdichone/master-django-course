@@ -41,6 +41,7 @@
                                     </button>
                                 {% endif %}
                             </form>
+                            <a href="{% url "recipes:delete_recipe" recipe.id %}">Delete Recipe</a>
                         </div>
                         {% comment %} <small> <a href="{% url "recipes:recipe_detail" recipe.id %}">View recipe details</a> </small> {% endcomment %}
                     </div>

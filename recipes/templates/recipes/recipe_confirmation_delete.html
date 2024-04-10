@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <div class="container mt-4">
+        <h2>Are you sure you want to delete "{{ recipe.name }}"?</h2>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Yes, delete</button>
+            <a href="{% url "recipes:recipe_detail" recipe.id %}">Cancel</a>
+        </form>
+    </div>
+{% endblock content %}

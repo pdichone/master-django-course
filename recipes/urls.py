@@ -12,4 +12,5 @@ urlpatterns = [
     ),
     path("my-favorites/", views.favorite_recipes, name="favorite_recipes"),
     path("search/", views.search_results, name="search_results"),
+    path("<int:recipe_id>/delete/", views.delete_recipe, name="delete_recipe"),
 ]

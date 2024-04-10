@@ -41,54 +41,56 @@
                                     </button>
                                 {% endif %}
                             </form>
-                            <a href="{% url "recipes:delete_recipe" recipe.id %}">Delete Recipe</a>
-                        </div>
-                        {% comment %} <small> <a href="{% url "recipes:recipe_detail" recipe.id %}">View recipe details</a> </small> {% endcomment %}
-                    </div>
+                        <a href="{% url "recipes:delete_recipe" recipe.id %}"><i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                    <a class="p-3" href="{% url "recipes:edit_recipe" recipe.id %}"> <i class="fas fa-edit"></i></a>
                 </div>
+                {% comment %} <small> <a href="{% url "recipes:recipe_detail" recipe.id %}">View recipe details</a> </small> {% endcomment %}
             </div>
         </div>
-    {% else %}
-        <p>No recipe found.</p>
-    {% endif %}
-    <div class="mt-4">
-        <h5>Comments:</h5>
-        {% for comment in comments %}
-            <div class="border p-3 mb-3 rounded">
-                <div class="d-flex align-items-center mb-2">
-                    {% if comment.user.profile.profile_photo %}
-                        <img src="{{ comment.user.profile.profile_photo.url }}"
-                             alt="Profile"
-                             class="rounded-circle me-2"
-                             style="width: 40px;
-                                    height: 40px">
-                    {% endif %}
-                    <div>
-                        <strong>{{ comment.user.username }}</strong>
-                        commented on {{ comment.date_added|date:"F d, Y" }}
-                        at {{ comment.date_added|time:"H:i" }}:
-                        <br>
-                        <p class="fst-italic">{{ comment.text }}</p>
-                    </div>
-                </div>
-            </div>
-        {% empty %}
-            <p>No comments yet.</p>
-        {% endfor %}
     </div>
-    <!-- Comment Form -->
-    {% if user.is_authenticated %}
-        <div class="mt-4">
-            <h5>Leave a comment:</h5>
-            <form method="post">
-                {% csrf_token %}
-                {% bootstrap_form comment_form %}
-                <div class="mt-3">{% bootstrap_button button_type="submit" content="Post Comment" %}</div>
-            </form>
+</div>
+{% else %}
+<p>No recipe found.</p>
+{% endif %}
+<div class="mt-4">
+    <h5>Comments:</h5>
+    {% for comment in comments %}
+        <div class="border p-3 mb-3 rounded">
+            <div class="d-flex align-items-center mb-2">
+                {% if comment.user.profile.profile_photo %}
+                    <img src="{{ comment.user.profile.profile_photo.url }}"
+                         alt="Profile"
+                         class="rounded-circle me-2"
+                         style="width: 40px;
+                                height: 40px">
+                {% endif %}
+                <div>
+                    <strong>{{ comment.user.username }}</strong>
+                    commented on {{ comment.date_added|date:"F d, Y" }}
+                    at {{ comment.date_added|time:"H:i" }}:
+                    <br>
+                    <p class="fst-italic">{{ comment.text }}</p>
+                </div>
+            </div>
         </div>
-    {% else %}
-        <p>
-            <a href="{% url "accounts:login" %}">Log in</a> to post a comment
-        </p>
-    {% endif %}
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+</div>
+<!-- Comment Form -->
+{% if user.is_authenticated %}
+    <div class="mt-4">
+        <h5>Leave a comment:</h5>
+        <form method="post">
+            {% csrf_token %}
+            {% bootstrap_form comment_form %}
+            <div class="mt-3">{% bootstrap_button button_type="submit" content="Post Comment" %}</div>
+        </form>
+    </div>
+{% else %}
+    <p>
+        <a href="{% url "accounts:login" %}">Log in</a> to post a comment
+    </p>
+{% endif %}
 {% endblock content %}
